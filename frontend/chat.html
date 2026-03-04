@@ -55,16 +55,17 @@
           })
 
           socket.on("chat_message", (data) => {
+            console.log(data)
             const chatbox = document.getElementById("chatbox");
             const messageDiv = document.createElement("div");
 
             if (data.nickname === nickname) { // usuario local y otros usuarios
               messageDiv.classList.add("message", "right");
-              messageDiv.innerText = data.message;
+              messageDiv.innerText = data.text;
             } 
             else { 
               messageDiv.classList.add("message", "left");
-              messageDiv.innerText = data.nickname + ": " + data.message;
+              messageDiv.innerText = data.nickname + ": " + data.text;
             }
 
             chatbox.appendChild(messageDiv);
