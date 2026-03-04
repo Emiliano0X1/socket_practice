@@ -2,6 +2,7 @@
   <head>
     <title>Chat en tiempo real</title>
     <link rel="stylesheet" href="positionsChat.css">
+    <script src='/socket.io/socket.io.js'></script>
   </head>
   <body>
 
@@ -11,13 +12,57 @@
 
       <h1>Chat en tiempo real</h1>
 
-      <input id="messageInput" type="text" placeholder="Escribe un mensaje..."></input>
-      <button type="button" onclick="sendMessage()">Enviar</button>
-      <!-- el send message ponen su metodo que pusieron y deberia de jalar por lo pronto -->
+      <form id = "messageForm">
+        <input id="messageInput" type="text" placeholder="Escribe un mensaje..."></input>
+        <button type="submit">Enviar</button>
+      </form>
+
       <div class="chatbox-container" id="chatbox">
         <div class="message left">Otros</div>
         <div class="message right">Tu</div>
       </div>
 
+
+       <script> 
+          const socket = io();
+
+          //1. Get the nickname from URL
+          const queryString = window.location.search
+          const urlParams = new URLSearchParams(queryString)
+
+          const nickname = urlParams.get('nickname')
+
+          console.log("Final Nickname : " , nickname)
+
+          //2. Make the join for the socket username
+          socket.emit("join", nickname , (res) => {
+            if(!res.ok){
+              alert("Hubo un error al enviar el nickname")
+              return;
+            }
+          })
+
+          //3. Manage the sending messages 
+          document.getElementById('messageForm').addEventListener("submit", (e) => {
+              e.preventDefault()
+              const message = document.getElementById('messageInput').value 
+
+              socket.emit("chat_message", message, (res) => {
+                  if(!res.ok){
+                    alert('Hubo un error en el proceso de enviar mensajes')
+                  }
+              })
+
+              document.getElementById('messageInput').value = '';
+          })
+
+          socket.on("chat_message", (data) => {
+            console.log("Mensaje recibido:", data);
+          });
+        
+        </script>
+
   </body>
+
+  
 </html>

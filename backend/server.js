@@ -1,6 +1,7 @@
 const express = require('express')
 const { Server } = require('socket.io')
 const { createServer } = require('http')
+const path = require('path')
 
 const app = express()
 const server = createServer(app)
@@ -11,10 +12,7 @@ const port = 3000
 const users = new Map();
 const takenNicknames = new Set();
 
-
-app.get('/', (req, res) => {
-    res.sendFile(process.cwd() + '/frontend/chat.html')
-})
+app.use(express.static(path.join(__dirname, '../frontend')))
 
 io.on("connection", (socket) => {
     console.log("Socket conectado:", socket.id);
