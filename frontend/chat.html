@@ -18,8 +18,6 @@
       </form>
 
       <div class="chatbox-container" id="chatbox">
-        <div class="message left">Otros</div>
-        <div class="message right">Tu</div>
       </div>
 
 
@@ -57,12 +55,21 @@
           })
 
           socket.on("chat_message", (data) => {
-            console.log("Mensaje recibido:", data);
-          });
-        
+            const chatbox = document.getElementById("chatbox");
+            const messageDiv = document.createElement("div");
+
+            if (data.nickname === nickname) { // usuario local y otros usuarios
+              messageDiv.classList.add("message", "right");
+              messageDiv.innerText = data.message;
+            } 
+            else { 
+              messageDiv.classList.add("message", "left");
+              messageDiv.innerText = data.nickname + ": " + data.message;
+            }
+
+            chatbox.appendChild(messageDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+          });  
         </script>
-
   </body>
-
-  
 </html>

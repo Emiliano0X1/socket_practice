@@ -14,13 +14,13 @@
       <br> <br>
 
       <h2>Ingresa tu nombre de usuario</h2>
-      <input id="nicknameInput" style="display: block; margin: 0 auto; width: 20%;" type="text" placeholder="Nickname" required>
+
+    <form id="nicknameForm">
+        <input id="nicknameInput" type="text" placeholder="Nickname" required></input>
+        <button type="submit">Entrar al chat</button>
+      </form>
 
       <br>
-
-      <form id="nicknameForm">
-        <button style="display: block; margin: 0 auto;" type="submit">Entrar al chat</button>
-      </form>
 
       <img src="fotos/terrified-ishowspeed.jpg" style="display: block; margin: 0 auto; width: 30%;">
 
@@ -33,10 +33,10 @@
           e.preventDefault();
 
           const nickname = document.getElementById('nicknameInput').value
-          console.log("Nickname Obtenido : ", nickname)
+          console.log("Nickname obtenido: ", nickname)
 
           if(nickname === '' || nickname === undefined){
-              alert("Vuelve a ingresar tu usuario , no dejes campos vacios")
+              alert("Vuelve a ingresar tu usuario, no dejes campos vacios")
           }
 
           window.location.href = "chat.html?nickname=" + nickname
