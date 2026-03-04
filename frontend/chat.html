@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Chat en tiempo real</title>
+    <link rel="stylesheet" href="positionsChat.css">
+  </head>
+  <body>
+
+      <form action="nickname.html" method="get">
+        <button type="submit">⬅️ Volver</button>
+      </form>
+
+      <h1>Chat en tiempo real</h1>
+
+      <input id="messageInput" type="text" placeholder="Escribe un mensaje..."></input>
+      <button type="button" onclick="sendMessage()">Enviar</button>
+      <!-- el send message ponen su metodo que pusieron y deberia de jalar por lo pronto -->
+      <div class="chatbox-container" id="chatbox">
+        <div class="message left">Otros</div>
+        <div class="message right">Tu</div>
+      </div>
+
+  </body>
+</html>
